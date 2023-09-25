@@ -1,64 +1,63 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
+-- Drop table(s) if exists
+DROP TABLE IF EXISTS campaign;
+DROP TABLE IF EXISTS category; 
+DROP TABLE IF EXISTS subcategory;
+DROP TABLE IF EXISTS contacts;
 
--- Modify this code to update the DB schema diagram.
--- To reset the sample schema, replace everything with
--- two dots ('..' - without quotes).
-
-CREATE TABLE "category" (
-    "category_id" object   NOT NULL,
-    "category" object   NOT NULL,
-    CONSTRAINT "pk_category" PRIMARY KEY (
-        "category_id"
-     )
+-- Create new table
+CREATE TABLE category (
+    category_id text NOT NULL,
+    category text,
+    PRIMARY KEY (category_id)
 );
 
-CREATE TABLE "subcategory" (
-    "subcategory_id" object   NOT NULL,
-    "sub-category" object   NOT NULL,
-    CONSTRAINT "pk_subcategory" PRIMARY KEY (
-        "subcategory_id"
-     )
+-- View table columns and datatypes
+SELECT * FROM category;
+
+-- Create new table
+CREATE TABLE subcategory (
+    subcategory_id text NOT NULL,
+    sub_category text,
+    PRIMARY KEY (subcategory_id)
 );
 
-CREATE TABLE "campaign" (
-    "cf_id" int64   NOT NULL,
-    "contact_id" int64   NOT NULL,
-    "company_name" object   NOT NULL,
-    "description" object   NOT NULL,
-    "goal" float64   NOT NULL,
-    "pledged" float64   NOT NULL,
-    "outcome" object   NOT NULL,
-    "backers_count" int64   NOT NULL,
-    "country" object   NOT NULL,
-    "currency" object   NOT NULL,
-    "launched_date" object   NOT NULL,
-    "end_date" object   NOT NULL,
-    "category" object   NOT NULL,
-    "sub-category" object   NOT NULL,
-    "category_id" object   NOT NULL,
-    "subcategory_id" int64   NOT NULL,
-    CONSTRAINT "pk_campaign" PRIMARY KEY (
-        "cf_id"
-     )
+-- View table columns and datatypes
+SELECT * FROM subcategory;
+
+-- Create new table
+CREATE TABLE contacts (
+    contact_id int NOT NULL,
+    first_name text NOT NULL,
+	last_name text NOT NULL,
+	email text NOT NULL,
+    PRIMARY KEY (contact_id)
 );
 
-CREATE TABLE "contacts" (
-    "contact_id" int64   NOT NULL,
-    "first_name" object   NOT NULL,
-    "last_name" object   NOT NULL,
-    "email" object   NOT NULL,
-    CONSTRAINT "pk_contacts" PRIMARY KEY (
-        "contact_id"
-     )
+-- View table columns and datatypes
+SELECT * FROM contacts;
+
+-- Create new table
+CREATE TABLE campaign (
+    cf_id int NOT NULL,
+    contact_id int REFERENCES contacts(contact_id) NOT NULL,
+	company_name text,
+	description text,
+	goal text ,
+	pledged text,
+	outcome text,
+	backers_count int,
+	country text,
+	currency text,
+	launched_date text,
+	end_date text,
+	category text,
+	sub_category text,
+	category_id text REFERENCES category(category_id) NOT NULL,
+	subcategory_id text REFERENCES subcategory(subcategory_id) NOT NULL,
+    PRIMARY KEY (cf_id)
 );
 
-ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_contact_id" FOREIGN KEY("contact_id")
-REFERENCES "contacts" ("contact_id");
+-- View table columns and datatypes
+SELECT * FROM campaign;
 
-ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_category_id" FOREIGN KEY("category_id")
-REFERENCES "category" ("category_id");
-
-ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_subcategory_id" FOREIGN KEY("subcategory_id")
-REFERENCES "subcategory" ("subcategory_id");
 
