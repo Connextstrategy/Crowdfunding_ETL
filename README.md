@@ -98,7 +98,7 @@ For the ETL mini project, you will work with a partner to practice building an E
 
 ![Screenshot 2023-09-21 094327](https://github.com/Connextstrategy/Crowdfunding_ETL/assets/18508699/82141ee8-a406-45eb-8aed-1a39ebd0f491)
 
-## Create the Campaign DataFrame
+## Create the Crowdfunding Database
 
 1. Inspect the four CSV files, and then sketch an ERD of the tables by using QuickDBDLinks to an external site..
 
